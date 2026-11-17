@@ -1,0 +1,20 @@
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.pagination-status {
+  color: var(--color-muted);
+  text-align: center;
+}
+
+@media (max-width: 420px) {
+  .pagination-status {
+    order: -1;
+    width: 100%;
+  }
+}

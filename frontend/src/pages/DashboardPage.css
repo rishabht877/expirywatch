@@ -1,0 +1,14 @@
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.dashboard-help ol {
+  margin: var(--space-3) 0 0;
+  padding-left: 1.4rem;
+}
+
+.dashboard-help li + li {
+  margin-top: var(--space-2);
+}

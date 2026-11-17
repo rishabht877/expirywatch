@@ -1,6 +1,7 @@
 import MongoStore from "connect-mongo";
 import express from "express";
 import session from "express-session";
+import { fileURLToPath } from "node:url";
 import passport, { SESSION_COOKIE_NAME } from "./auth/passport.js";
 import { closeDb, getClient, getDb } from "./db/connection.js";
 import { ensureIndexes } from "./db/indexes.js";
@@ -48,6 +49,20 @@ app.use("/api/assets", assetRoutes);
 app.use("/api", (req, res) => {
   res.status(404).json({ errors: ["Not found"] });
 });
+
+// In production the built React app is served from the same origin.
+// Any other GET outside /api gets index.html so client-side routes work.
+// redirect: false stops /assets (the page) redirecting to the dist/assets folder.
+if (NODE_ENV === "production") {
+  const distDir = fileURLToPath(new URL("../frontend/dist", import.meta.url));
+  app.use(express.static(distDir, { redirect: false }));
+  app.get("/{*splat}", (req, res, next) => {
+    if (req.path.startsWith("/api")) {
+      return next();
+    }
+    return res.sendFile("index.html", { root: distDir });
+  });
+}
 
 // Express only treats a middleware as an error handler when it takes four arguments.
 app.use((err, req, res, _next) => {

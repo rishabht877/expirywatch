@@ -1,0 +1,104 @@
+.asset-list {
+  font-size: 0.925rem;
+}
+
+.asset-list th {
+  padding-top: var(--space-3);
+  padding-bottom: var(--space-3);
+  white-space: nowrap;
+}
+
+.asset-list td {
+  padding-top: var(--space-3);
+  padding-bottom: var(--space-3);
+}
+
+.asset-list tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.asset-list tbody tr:hover {
+  background: var(--color-bg);
+}
+
+.asset-list .asset-list-editing,
+.asset-list .asset-list-editing:hover {
+  background: var(--color-primary-soft);
+}
+
+/* The asset column gets the room; the rest stay on one line. */
+.asset-list td:first-child {
+  min-width: 15rem;
+  width: 100%;
+}
+
+.asset-list td:not(:first-child) {
+  white-space: nowrap;
+}
+
+.asset-list-name {
+  display: block;
+  font-weight: 600;
+  overflow-wrap: break-word;
+}
+
+.asset-list-notes {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 28rem;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.asset-list-env {
+  display: inline-block;
+  padding: 0.1rem 0.55rem;
+  border-radius: 999px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  font-size: 0.825rem;
+}
+
+.asset-list-date {
+  display: block;
+}
+
+.asset-list-days {
+  display: block;
+  color: var(--color-muted);
+  font-size: 0.825rem;
+}
+
+.asset-list-actions {
+  text-align: right;
+}
+
+.asset-list-actions button {
+  padding: 0.3rem 0.7rem;
+  font-size: 0.85rem;
+}
+
+.asset-list-actions button + button {
+  margin-left: var(--space-2);
+}
+
+@media (max-width: 720px) {
+  .asset-list td:first-child {
+    min-width: 0;
+    width: auto;
+  }
+
+  .asset-list td:not(:first-child) {
+    white-space: normal;
+  }
+
+  .asset-list-notes {
+    max-width: none;
+  }
+
+  .asset-list-actions {
+    text-align: left;
+  }
+}

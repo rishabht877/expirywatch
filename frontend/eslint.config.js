@@ -1,0 +1,101 @@
+// ESLint flat config for the React frontend. It uses only ESLint's built-in
+// rules (no React plugins), so JSX parsing and browser globals are set by hand.
+// varsIgnorePattern "^[A-Z]" stops components used only in JSX being flagged.
+const browserGlobals = {
+  window: "readonly",
+  document: "readonly",
+  navigator: "readonly",
+  console: "readonly",
+  fetch: "readonly",
+  URL: "readonly",
+  URLSearchParams: "readonly",
+  setTimeout: "readonly",
+  clearTimeout: "readonly",
+};
+
+export default [
+  {
+    ignores: ["dist/", "node_modules/"],
+  },
+  {
+    files: ["**/*.{js,jsx}"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      parserOptions: {
+        ecmaFeatures: { jsx: true },
+      },
+      globals: browserGlobals,
+    },
+    linterOptions: {
+      reportUnusedDisableDirectives: "error",
+    },
+    rules: {
+      "array-callback-return": "error",
+      "constructor-super": "error",
+      "for-direction": "error",
+      "getter-return": "error",
+      "no-async-promise-executor": "error",
+      "no-await-in-loop": "error",
+      "no-case-declarations": "error",
+      "no-cond-assign": "error",
+      "no-const-assign": "error",
+      "no-constant-condition": "error",
+      "no-control-regex": "error",
+      "no-debugger": "error",
+      "no-dupe-args": "error",
+      "no-dupe-keys": "error",
+      "no-duplicate-case": "error",
+      "no-duplicate-imports": "error",
+      "no-empty": "error",
+      "no-empty-pattern": "error",
+      "no-eval": "error",
+      "no-ex-assign": "error",
+      "no-fallthrough": "error",
+      "no-func-assign": "error",
+      "no-implied-eval": "error",
+      "no-import-assign": "error",
+      "no-invalid-regexp": "error",
+      "no-irregular-whitespace": "error",
+      "no-loss-of-precision": "error",
+      "no-misleading-character-class": "error",
+      "no-new-native-nonconstructor": "error",
+      "no-obj-calls": "error",
+      "no-prototype-builtins": "error",
+      "no-redeclare": "error",
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector: "CallExpression[callee.name='require']",
+          message: "Use ES module imports instead of require.",
+        },
+        {
+          selector:
+            "AssignmentExpression[left.object.name='module'][left.property.name='exports']",
+          message: "Use ES module exports instead of module.exports.",
+        },
+      ],
+      "no-self-assign": "error",
+      "no-shadow-restricted-names": "error",
+      "no-sparse-arrays": "error",
+      "no-undef": "error",
+      "no-unreachable": "error",
+      "no-unsafe-finally": "error",
+      "no-unsafe-negation": "error",
+      "no-unused-private-class-members": "error",
+      "no-unused-vars": [
+        "error",
+        { varsIgnorePattern: "^[A-Z]", argsIgnorePattern: "^_" },
+      ],
+      "no-use-before-define": ["error", { functions: false }],
+      "no-useless-catch": "error",
+      "no-useless-escape": "error",
+      "no-var": "error",
+      "prefer-const": "error",
+      "require-yield": "error",
+      "use-isnan": "error",
+      "valid-typeof": "error",
+      eqeqeq: ["error", "always"],
+    },
+  },
+];

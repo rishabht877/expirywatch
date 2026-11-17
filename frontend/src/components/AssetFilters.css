@@ -1,0 +1,55 @@
+/* Two rows on wide screens: search, sort and reset on top, the four filters
+   below. Every control gets enough width to show its full label. */
+.asset-filters {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-areas:
+    "search search sort reset"
+    "type environment owner status";
+  gap: 0 var(--space-4);
+  align-items: end;
+}
+
+.asset-filters-search {
+  grid-area: search;
+}
+
+.asset-filters-type {
+  grid-area: type;
+}
+
+.asset-filters-environment {
+  grid-area: environment;
+}
+
+.asset-filters-owner {
+  grid-area: owner;
+}
+
+.asset-filters-status {
+  grid-area: status;
+}
+
+.asset-filters-sort {
+  grid-area: sort;
+}
+
+.asset-filters-reset {
+  grid-area: reset;
+  margin-bottom: var(--space-4);
+}
+
+.asset-filters-reset button {
+  width: 100%;
+}
+
+@media (max-width: 720px) {
+  .asset-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "search search"
+      "type environment"
+      "owner status"
+      "sort reset";
+  }
+}
