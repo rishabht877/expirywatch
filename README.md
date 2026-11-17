@@ -22,7 +22,7 @@ Teams lose track of when their certificates, domains and API keys expire, and th
 
 ## Screenshot
 
-![ExpiryWatch dashboard](dashboard.png)
+![ExpiryWatch dashboard](docs/dashboard.png)
 
 ## Features
 
