@@ -281,6 +281,13 @@ th {
     padding: var(--space-1) var(--space-3);
   }
 
+  /* Everything in a cell goes in the value column, at its natural width, so
+     notes, badges and buttons never fall under the label. */
+  .stack-table td > * {
+    grid-column: 2;
+    justify-self: start;
+  }
+
   .stack-table td::before {
     content: attr(data-label);
     font-weight: 600;

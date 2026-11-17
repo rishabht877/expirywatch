@@ -178,11 +178,14 @@ router.put("/me", requireAuth, async (req, res) => {
   return res.json({ user: toPublicUser(updated) });
 });
 
-// Deletes the account and every asset it owns, then ends the session.
+// Deletes the account and every asset and renewal it owns, then ends the session.
 router.delete("/me", requireAuth, async (req, res) => {
   const userId = req.user._id;
   const db = await getDb();
-  await db.collection("assets").deleteMany({ ownerId: userId });
+  await Promise.all([
+    db.collection("assets").deleteMany({ ownerId: userId }),
+    db.collection("renewals").deleteMany({ ownerId: userId }),
+  ]);
   await db.collection("users").deleteOne({ _id: userId });
   await endSession(req, res);
   return res.status(204).end();

@@ -30,7 +30,8 @@ Teams lose track of when their certificates, domains and API keys expire, and th
 - **Assets.** Create, view, edit and delete assets. Each asset has a name, a type (SSL certificate, domain, API key, license or other), an environment (production, staging or development), an owner, an expiry date and optional notes. You only ever see and change your own assets.
 - **Search and filters.** Search assets by name and filter by type, environment, owner and status (expired, expiring within 30 days, or OK). Sort by expiry date, name or date added. Results are paginated.
 - **Expiry dashboard.** Counts of expired, expiring and OK assets, plus a "Needs attention first" table of the eight assets with the soonest expiry dates, showing how many days are left or overdue.
-- **Seeded data.** A seed script creates a demo account with 1,200 realistic sample assets, spread across expired, expiring soon and later dates.
+- **Renewals.** Log each renewal with the asset name, type, who renewed it, the renewal date and the new expiry date. Create, view, edit and delete renewals, search by asset name, and filter by type, the person who renewed it, and a date range. The list shows the newest renewals first and is paginated.
+- **Seeded data.** Seed scripts create a demo account with 1,200 realistic sample assets, spread across expired, expiring soon and later dates, and 1,100 renewals of those assets over the last year by ten different people.
 
 Status is always shown with a word and a symbol, not by color alone.
 
@@ -40,7 +41,7 @@ Status is always shown with a word and a symbol, not by color alone.
 | ---------------------- | ---------------- |
 | `demo@expirywatch.dev` | `ExpiryDemo2026` |
 
-This account is for the demo only. It is created by the seed script.
+This account is for the demo only. It is created by the seed scripts.
 
 ## Tech stack
 
@@ -59,8 +60,8 @@ expirywatch/
 │   ├── auth/          Passport setup and the requireAuth middleware
 │   ├── db/            MongoDB connection and index setup
 │   ├── lib/           Validation, ObjectId parsing and pagination helpers
-│   ├── routes/        auth.js and assets.js (the /api/auth and /api/assets routes)
-│   ├── scripts/       seed.js and check-db.js
+│   ├── routes/        auth.js, assets.js and renewals.js (/api/auth, /api/assets, /api/renewals)
+│   ├── scripts/       seed.js, seed-renewals.js and check-db.js
 │   ├── server.js      Express app
 │   └── .env.example   Template for the environment variables
 ├── frontend/
@@ -78,8 +79,6 @@ expirywatch/
 ├── .prettierrc.json   Prettier config shared by both folders
 └── LICENSE
 ```
-
-The Renewals page is currently a placeholder.
 
 ## Instructions to build and run
 
@@ -129,13 +128,14 @@ cd ../frontend && npm install
 
 ### 4. Seed the database
 
-Run this once, from the `backend` folder:
+Run these once, in this order, from the `backend` folder:
 
 ```bash
 npm run seed
+npm run seed:renewals
 ```
 
-It creates the demo account and 1,200 sample assets, along with the database indexes. If the demo account already has 1,000 or more assets, it prints a message and adds nothing.
+The first creates the demo account and 1,200 sample assets, along with the database indexes. The second adds 1,100 renewals of those assets. Each script checks first: if the demo account already has 1,000 or more assets (or renewals), it prints a message and adds nothing.
 
 ### 5. Run in development
 

@@ -49,6 +49,11 @@ function DashboardPage() {
             environment, owner or status, then edit the expiry date once it is
             renewed.
           </li>
+          <li>
+            When you renew something, log it on the{" "}
+            <Link to="/renewals">Renewals</Link> page with who renewed it and
+            the new expiry date, so the team has a history.
+          </li>
         </ol>
       </section>
 
