@@ -193,7 +193,7 @@ npm run format
 
 ## Design document
 
-[Design document (PDF)](docs/design-doc.pdf)
+[Design document (PDF)](docs/design-doc-p3.pdf)
 
 ## License
 
