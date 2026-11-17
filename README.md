@@ -16,6 +16,10 @@ CS 5610 Web Development, Northeastern University, Fall 2026
 
 Teams lose track of when their certificates, domains and API keys expire, and the first sign is often an outage or a locked account. ExpiryWatch keeps every expiring item in one place with its owner, environment and expiry date. A dashboard shows what has already expired and what expires within the next 30 days, so the right person can renew it in time.
 
+## Short public and narrated video
+
+[https://youtu.be/v6fk5osfmoQ?is=vj3yKn38GIyAixwu](https://youtu.be/v6fk5osfmoQ?is=vj3yKn38GIyAixwu)
+
 ## Live site
 
 [https://expirywatch-zzyy.onrender.com/](https://expirywatch-zzyy.onrender.com/)
