@@ -91,17 +91,22 @@ const LIST_PARAMS = [
   "limit",
 ];
 
-// Sends only known, non-empty parameters; the server rejects anything else.
-export function listAssets(params) {
+// Builds a query string from known, non-empty parameters only; the server
+// rejects anything else.
+function queryString(params, allowed) {
   const search = new URLSearchParams();
-  for (const key of LIST_PARAMS) {
+  for (const key of allowed) {
     const value = params[key];
     if (value !== undefined && value !== null && String(value).trim() !== "") {
       search.set(key, String(value).trim());
     }
   }
   const query = search.toString();
-  return request(`/assets${query ? `?${query}` : ""}`);
+  return query ? `?${query}` : "";
+}
+
+export function listAssets(params) {
+  return request(`/assets${queryString(params, LIST_PARAMS)}`);
 }
 
 export function getSummary() {
@@ -131,4 +136,50 @@ export async function updateAsset(id, asset) {
 
 export function deleteAsset(id) {
   return request(`/assets/${encodeURIComponent(id)}`, { method: "DELETE" });
+}
+
+const RENEWAL_LIST_PARAMS = [
+  "q",
+  "type",
+  "renewedBy",
+  "from",
+  "to",
+  "page",
+  "limit",
+];
+
+export function listRenewals(params) {
+  return request(`/renewals${queryString(params, RENEWAL_LIST_PARAMS)}`);
+}
+
+function renewalBody({
+  assetName,
+  type,
+  newExpiryDate,
+  renewedBy,
+  renewedAt,
+  notes,
+}) {
+  return { assetName, type, newExpiryDate, renewedBy, renewedAt, notes };
+}
+
+export async function createRenewal(renewal) {
+  const data = await request("/renewals", {
+    method: "POST",
+    body: renewalBody(renewal),
+  });
+  return data.renewal;
+}
+
+// PUT replaces the whole renewal, so every field is always sent.
+export async function updateRenewal(id, renewal) {
+  const data = await request(`/renewals/${encodeURIComponent(id)}`, {
+    method: "PUT",
+    body: renewalBody(renewal),
+  });
+  return data.renewal;
+}
+
+export function deleteRenewal(id) {
+  return request(`/renewals/${encodeURIComponent(id)}`, { method: "DELETE" });
 }

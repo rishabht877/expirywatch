@@ -1,0 +1,51 @@
+/* Two rows on wide screens: search and type on top, the person, the date
+   range and reset below. Matches the Assets filter toolbar. */
+.renewal-filters {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-areas:
+    "search search search type"
+    "renewedBy from to reset";
+  gap: 0 var(--space-4);
+  align-items: end;
+}
+
+.renewal-filters-search {
+  grid-area: search;
+}
+
+.renewal-filters-type {
+  grid-area: type;
+}
+
+.renewal-filters-renewedBy {
+  grid-area: renewedBy;
+}
+
+.renewal-filters-from {
+  grid-area: from;
+}
+
+.renewal-filters-to {
+  grid-area: to;
+}
+
+.renewal-filters-reset {
+  grid-area: reset;
+  margin-bottom: var(--space-4);
+}
+
+.renewal-filters-reset button {
+  width: 100%;
+}
+
+@media (max-width: 720px) {
+  .renewal-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "search search"
+      "type renewedBy"
+      "from to"
+      "reset reset";
+  }
+}

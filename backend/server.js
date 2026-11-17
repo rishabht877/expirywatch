@@ -7,6 +7,7 @@ import { closeDb, getClient, getDb } from "./db/connection.js";
 import { ensureIndexes } from "./db/indexes.js";
 import assetRoutes from "./routes/assets.js";
 import authRoutes from "./routes/auth.js";
+import renewalRoutes from "./routes/renewals.js";
 
 const SESSION_TTL_SECONDS = 7 * 24 * 60 * 60;
 
@@ -43,8 +44,7 @@ app.use(passport.session());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/assets", assetRoutes);
-// Dins: mount the renewals router here, e.g.
-// app.use("/api/renewals", renewalRoutes);
+app.use("/api/renewals", renewalRoutes);
 
 app.use("/api", (req, res) => {
   res.status(404).json({ errors: ["Not found"] });

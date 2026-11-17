@@ -1,0 +1,86 @@
+.renewal-list {
+  font-size: 0.925rem;
+}
+
+.renewal-list th {
+  padding-top: var(--space-3);
+  padding-bottom: var(--space-3);
+  white-space: nowrap;
+}
+
+.renewal-list td {
+  padding-top: var(--space-3);
+  padding-bottom: var(--space-3);
+}
+
+.renewal-list tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.renewal-list tbody tr:hover {
+  background: var(--color-bg);
+}
+
+.renewal-list .renewal-list-editing,
+.renewal-list .renewal-list-editing:hover {
+  background: var(--color-primary-soft);
+}
+
+/* The asset column gets the room; the rest stay on one line. */
+.renewal-list td:first-child {
+  min-width: 15rem;
+  width: 100%;
+}
+
+.renewal-list td:not(:first-child) {
+  white-space: nowrap;
+}
+
+.renewal-list-name {
+  display: block;
+  font-weight: 600;
+  overflow-wrap: break-word;
+}
+
+.renewal-list-notes {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 28rem;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.renewal-list-actions {
+  text-align: right;
+}
+
+.renewal-list-actions button {
+  padding: 0.3rem 0.7rem;
+  font-size: 0.85rem;
+}
+
+.renewal-list-buttons {
+  display: inline-flex;
+  gap: var(--space-2);
+}
+
+@media (max-width: 720px) {
+  .renewal-list td:first-child {
+    min-width: 0;
+    width: auto;
+  }
+
+  .renewal-list td:not(:first-child) {
+    white-space: normal;
+  }
+
+  .renewal-list-notes {
+    max-width: none;
+  }
+
+  .renewal-list-actions {
+    text-align: left;
+  }
+}
