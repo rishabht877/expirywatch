@@ -181,7 +181,18 @@ router.put("/me", requireAuth, async (req, res) => {
 // Deletes the account and every asset and renewal it owns, then ends the session.
 router.delete("/me", requireAuth, async (req, res) => {
   const userId = req.user._id;
+  const errors = [];
+  checkPassword(req.body?.password, errors);
+  if (errors.length) {
+    return badRequest(res, errors);
+  }
   const db = await getDb();
+  const stored = await db
+    .collection("users")
+    .findOne({ _id: userId }, { projection: { passwordHash: 1 } });
+  if (!stored || !(await bcrypt.compare(req.body.password, stored.passwordHash))) {
+    return badRequest(res, ["password is incorrect"]);
+  }
   await Promise.all([
     db.collection("assets").deleteMany({ ownerId: userId }),
     db.collection("renewals").deleteMany({ ownerId: userId }),
